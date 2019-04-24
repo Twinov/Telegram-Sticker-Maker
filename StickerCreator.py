@@ -25,13 +25,21 @@ from PIL import Image as pilimg
 
 try:
     with Image(filename=sys.argv[1]) as img:
+        image_name = sys.argv[1]
+        if len(sys.argv) == 3:
+            output_name = sys.argv[2]
+        else:
+            output_name = image_name
+            
         IMAGE_SIDE_LENGTH_PX = 512
 
         webp_requested = False;
 
         if len(sys.argv) == 3:
-            if sys.argv[2][-5:] == ".webp":
+            if output_name[-4:] == 'webp':
                 webp_requested = True
+                if output_name == 'webp':
+                    output_name = image_name[:len(image_name) - 4] + '.webp'
 
         #create a random string
         rand_string = ''.join([random.choice(string.ascii_letters) for n in range(10)])
@@ -58,23 +66,28 @@ try:
                 new_img.composite(img, left=0, top=top)
 
                 if webp_requested:
-                    new_img.format = "png"
-                    new_img.save(filename = rand_string + ".png")
-                    final_img = pilimg.open(rand_string + ".png")
+                    new_img.format = 'png'
+                    new_img.save(filename = rand_string + '.png')
+                    final_img = pilimg.open(rand_string + '.png')
                     try:
-                        final_img.save("res/" + sys.argv[2])
-                        os.remove(rand_string + ".png")
+                        final_img.save('res/webp/' + output_name)
+                        os.remove(rand_string + '.png')
+                        print('sticker preview successfully created: ' + output_name)
                     except IOError:
-                        print("error in webp conversion")
+                        print('error in webp conversion, probably missing a ./res/ folder or ./res/webp')
                 elif len(sys.argv) == 3:
-                    new_img.format = "png"
-                    if sys.argv[2][-4:] == ".png":
-                        new_img.save(filename="res/" + sys.argv[2])
+                    new_img.format = 'png'
+                    if output_name[-4:] == '.png':
+                        new_img.save(filename='res/' + output_name)
+                        print('sticker successfully created: ' + output_name)
                     else:
-                        new_img.save(filename="res/" + sys.argv[2] + ".png")
+                        new_img.save(filename='res/' + output_name + '.png')
+                        print('sticker successfully created: ' + output_name)
                 else:
-                    new_img.format = "png"
-                    new_img.save(filename="res/output.png")
+                    new_img.format = 'png'
+                    default_name = 'res/' + image_name[:len(image_name) - 4] + '.png'
+                    new_img.save(filename= default_name)
+                    print('sticker successfully created: ' + default_name)
 
         #repeat the above code but in terms of the height being the longest side
         else:
@@ -86,22 +99,27 @@ try:
                 new_img.composite(img, left=left, top=0)
 
                 if webp_requested:
-                    new_img.format = "png"
-                    new_img.save(filename = rand_string + ".png")
-                    final_img = pilimg.open(rand_string + ".png")
+                    new_img.format = 'png'
+                    new_img.save(filename = rand_string + '.png')
+                    final_img = pilimg.open(rand_string + '.png')
                     try:
-                        final_img.save("res/" + sys.argv[2])
-                        os.remove(rand_string + ".png")
+                        final_img.save('res/webp/' + output_name)
+                        os.remove(rand_string + '.png')
+                        print('sticker preview successfully created: ' + output_name)
                     except IOError:
-                        print("error in webp conversion")
+                        print('error in webp conversion, probably missing a ./res/ folder or ./res/webp')
                 elif len(sys.argv) == 3:
-                    new_img.format = "png"
-                    if sys.argv[2][-4:] == ".png":
-                        new_img.save(filename="res/" + sys.argv[2])
+                    new_img.format = 'png'
+                    if output_name[-4:] == '.png':
+                        new_img.save(filename='res/' + output_name)
+                        print('sticker successfully created: ' + output_name)
                     else:
-                        new_img.save(filename="res/" + sys.argv[2] + ".png")
+                        new_img.save(filename='res/' + output_name + '.png')
+                        print('sticker successfully created: ' + output_name)
                 else:
-                    new_img.format = "png"
-                    new_img.save(filename="res/output.png")
+                    new_img.format = 'png'
+                    default_name = 'res/' + image_name[:len(image_name) - 4] + '.png'
+                    new_img.save(filename= default_name)
+                    print('sticker successfully created: ' + default_name)
 except IOError:
     print ("Not a valid file")
