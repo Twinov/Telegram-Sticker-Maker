@@ -8,3 +8,4 @@ To run, type:
 in the command line.  
   
 By default, the output will be a png. To output as a webp image, write the output filename postpended with .webp
+Requires a /res folder to be present in the directory it is called in to work.
