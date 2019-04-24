@@ -7,5 +7,5 @@ To run, type:
 `python StickerCreator.py [filename of image to be used] [output filename]`  
 in the command line.  
   
-By default, the output will be a png. To output as a webp image, write the output filename postpended with .webp
+By default, the output will be a png. To output as a webp image, write the output filename postpended with .webp  
 Requires a /res folder to be present in the directory it is called in to work.
